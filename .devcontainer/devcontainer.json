@@ -42,5 +42,5 @@
 			}
 		}
 	},
-	"onCreateCommand": "pip install -e .[full,test,dev] && pre-commit install"
+	"onCreateCommand": "pip install -e .[test,dev,full,torch] && pre-commit install"
 }
