@@ -10,7 +10,7 @@ Check out the github repo at: https://github.com/jan-meissner/AnonGraph
 
 - [Codespaces: Run the Code Without Installations](#codespaces-run-the-code-without-installations)
 - [Usage](#usage)
-- [Manual Installation](#manual-installation)
+- [Local Installation](#manual-installation)
   - [From Git Repository](#from-git-repository)
   - [Local Installation](#local-installation)
 
@@ -24,16 +24,16 @@ No need to worry about any installation.
 
 ## Usage
 
-Execute the notebooks found in the notebooks folder.
+Execute the notebooks found in the notebooks folder. If you are using Codespaces select the default starred kernel for the Jupyter Notebooks.
 
-## Manual Installation
+## Local Installation
 
 ### From Git Repository
 
 To install the package from the Git repository, run the following command:
 
 ```bash
-pip install git+https://github.com/username/repository.git
+pip install git+https://github.com/jan-meissner/AnonGraph.git
 ```
 
 ### Local Installation
