@@ -10,11 +10,10 @@ class DegreeCentralityMetric(AbstractNodeMetric):
     """
     This class calculates and compares the degree centrality of two graphs.
     The comparison is done using the default distribution distance function used by AbstractNodeMetric.
-    Uses GraphBLAS to accelerate the calculation.
     """
 
     def __init__(self):
-        super().__init__()  # graphblas = True causes floating point errors
+        super().__init__()
 
     def compute_node_distribution(self, G: nx.Graph):
         return list(nx.degree_centrality(G).values())
@@ -24,16 +23,11 @@ class EigenvectorMetric(AbstractNodeMetric):
     """
     This class calculates and compares the eigenvector centralities of two graphs.
     The comparison is done using the default distribution distance function used by AbstractNodeMetric.
-    Uses GraphBLAS to accelerate the calculation.
     """
 
     def __init__(self, *args, **kwargs):
         """
         Initializes the EigenvectorMetric.
-
-        Args:
-            *args: Additional positional arguments to be passed to nx.eigenvector_centrality.
-            **kwargs: Additional keyword arguments to be passed to nx.eigenvector_centrality.
         """
         super().__init__(pass_graph_as_igraph=False)
         self.args = args
@@ -68,10 +62,6 @@ class KatzCentralityMetric(AbstractNodeMetric):
     def __init__(self, *args, **kwargs):
         """
         Initializes the KatzCentralityMetric.
-
-        Args:
-            *args: Additional positional arguments to be passed to nx.katz_centrality.
-            **kwargs: Additional keyword arguments to be passed to nx.katz_centrality.
         """
         super().__init__(pass_graph_as_igraph=False)
         self.args = args
@@ -90,10 +80,6 @@ class PageRankMetric(AbstractNodeMetric):
     def __init__(self, *args, **kwargs):
         """
         Initializes the PageRankMetric.
-
-        Args:
-            *args: Additional positional arguments to be passed to nx.pagerank.
-            **kwargs: Additional keyword arguments to be passed to nx.pagerank.
         """
         super().__init__(pass_graph_as_igraph=False)
         # Store args and kwargs to be used in compute_node_distribution

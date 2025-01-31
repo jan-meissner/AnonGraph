@@ -13,8 +13,8 @@ __all__ = [
 from .configuration_model_anonymizer import ConfigurationModelAnonymizer
 from .method_k_degree_anonymity import KDegreeAnonymizer
 from .method_nest_model import NestModelAnonymizer
-from .method_private_color_closeness import PrivateClosenessColors
-from .method_private_colors import PrivateColorAnonymizer
+from .method_private_colors_climbing import PrivateColorAnonymizer
+from .method_private_colors_closeness import PrivateClosenessColors
 from .method_private_colors_soft_assignment import SoftColorAnonymizer
 from .method_pygmalion import PygmalionModelAnonymizer
 from .method_variant_nest_model import VariantNestModelAnonymizer

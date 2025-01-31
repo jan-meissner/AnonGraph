@@ -6,7 +6,7 @@ import networkx as nx
 
 class AbstractMetric(ABC):
     """
-    Base class for graph metrics evaluation with optional GraphBLAS acceleration support.
+    Base class for graph metrics evaluation with optional iGraph acceleration support.
     """
 
     def __init__(self, pass_graph_as_igraph=False):
@@ -14,7 +14,7 @@ class AbstractMetric(ABC):
         Initialize the Metric.
 
         Args:
-            pass_graph_as_igraph (boolean): True if graphblas graphs should be passed to evaluate.
+            pass_graph_as_igraph (boolean): True if iGraph graphs should be passed to evaluate.
         """
         self.pass_graph_as_igraph = pass_graph_as_igraph
 
@@ -22,7 +22,7 @@ class AbstractMetric(ABC):
     def evaluate(self, G: nx.Graph, Ga: nx.Graph) -> Any:
         """
         Evaluates the metric for the original graph G and the anonymized graph Ga. If self.pass_graph_as_igraph is
-        set to true G and Ga are graphblas graphs.
+        set to true G and Ga are iGraph graphs.
 
         Args:
             G (nx.Graph): The original graph.

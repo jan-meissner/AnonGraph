@@ -17,7 +17,7 @@ class WLColorMetric(AbstractNodeMetric):
     distributions using the Total Variational Distance. Colors are defined in the same way for both graphs.
     """
 
-    def __init__(self, depth):
+    def __init__(self, depth: int):
         """
         Initializes the class.
 
@@ -71,22 +71,3 @@ def _labels_to_prob_dists(p_labels: np.ndarray, q_labels: np.ndarray):
     np.add.at(q_prob_dist, q_indices, 1)
 
     return p_prob_dist / len(p_labels), q_prob_dist / len(q_labels)
-
-
-# def _kl_divergence(p, q):
-#    """Calculate the Kullback-Leibler divergence."""
-#    return np.sum(np.where(p != 0, p * np.log(p / q), 0))
-#
-# def _jensen_shannon_divergence(p, q):
-#    """Calculate the Jensen-Shannon Divergence."""
-#    m = 0.5 * (p + q)
-#    return 0.5 * _kl_divergence(p, m) + 0.5 * _kl_divergence(q, m)
-#
-# def _hellinger_distance(p, q):
-#    """Calculate the Hellinger Distance."""
-#    return np.sqrt(0.5 * np.sum((np.sqrt(p) - np.sqrt(q)) ** 2))
-#
-# def _bhattacharyya_distance(p, q):
-#    """Calculate the Bhattacharyya Distance."""
-#    return -np.log(np.sum(np.sqrt(p * q)))
-#

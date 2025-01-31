@@ -10,10 +10,10 @@ from .abstract_anonymizer import AbstractAnonymizer
 
 class PygmalionModelAnonymizer(AbstractAnonymizer):
     """
-    Applies epsilon-differential privacy to the joint degree matrix of a graph.
+    Applies edge-differential privacy to the joint degree matrix of a graph.
 
     The method implements differential privacy as described by Sala et al. [1],
-    adding noise to the graph's joint degree matrix, then generating a synthetic
+    adding noise to the graphs joint degree matrix, then generating a synthetic
     graph using the sampling method from Mahadevan et al. [2].
 
     Args:
@@ -29,7 +29,7 @@ class PygmalionModelAnonymizer(AbstractAnonymizer):
 
     def anonymize(self, graph: nx.Graph, random_seed=None) -> nx.Graph:
         if random_seed is not None:
-            random.seed(random_seed)  # Set the seed for reproducibility
+            random.seed(random_seed)
 
         if nx.is_empty(graph):
             return graph
@@ -62,7 +62,7 @@ def get_joint_degree_matrix(G):
 
     # Get maximum degree
     d_max = degree_vec.max()
-    matrix_size = d_max + 1  # Include zero degree if necessary
+    matrix_size = d_max + 1
     dk_matrix = sparse.coo_matrix(
         (np.ones_like(degrees_min), (degrees_min, degrees_max)), shape=(matrix_size, matrix_size)
     )

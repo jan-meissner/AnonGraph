@@ -1,31 +1,32 @@
-[![codecov](https://codecov.io/gh/jan-meissner/AnonymiGraph/graph/badge.svg?token=xQucrvH23K)](https://codecov.io/gh/jan-meissner/AnonymiGraph)
-[![Python CI](https://github.com/jan-meissner/AnonymiGraph/actions/workflows/CI.yml/badge.svg)](https://github.com/jan-meissner/AnonymiGraph/actions/workflows/CI.yml)
-
-**[Documentation](https://jan-meissner.github.io/AnonymiGraph/)** |
+[![Python CI](https://github.com/jan-meissner/AnonGraph/actions/workflows/CI.yml/badge.svg)](https://github.com/jan-meissner/AnonGraph/actions/workflows/CI.yml)
 
 # AnonymiGraph
 
 Anonymization and Privacy Preserving Algorithms for Graphs in Python.
 
+Check out the github repo at: https://github.com/jan-meissner/AnonGraph
+
 ## Table of Contents
 
-- [Codespaces: Development Without Installations](#codespaces-development-without-installations)
-- [Installation](#installation)
+- [Codespaces: Run the Code Without Installations](#codespaces-run-the-code-without-installations)
+- [Usage](#usage)
+- [Manual Installation](#manual-installation)
   - [From Git Repository](#from-git-repository)
   - [Local Installation](#local-installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
-## Codespaces: Development Without Installations
+## Codespaces: Run the Code Without Installations
 
-No need to worry about any installation. To use it:
+No need to worry about any installation.
 
-1. Navigate to the GitHub repository.
-2. Click on the 'Code' button and select 'Open with Codespaces'.
-3. Once the environment is set up, you're ready to go! And you should be able to run code in the notebooks.
+1. Navigate to the GitHub repository (https://github.com/jan-meissner/AnonGraph).
+2. Click on the 'Code' button and select 'Codespaces' and then click on 'Create codespace on main'.
+3. Wait for ~10 minutes for the environment to setup and then you are ready to go. (see [Usage](#usage) for usage)
 
-## Installation
+## Usage
+
+Execute the notebooks found in the notebooks folder.
+
+## Manual Installation
 
 ### From Git Repository
 
@@ -49,7 +50,7 @@ For local development, you can install the project by following these steps:
    ```
 3. Install the package:
    ```bash
-   pip install -e .[full,test,dev]
+   pip install -e .[full,test,dev,torch]
    ```
 4. Set up pre-commits:
    ```bash

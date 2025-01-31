@@ -19,6 +19,15 @@ logger = logging.getLogger(__name__)
 class PrivateColorAnonymizer(AbstractAnonymizer):
     """
     Implements the anonymizer based on our technique when using a Katz-based utility loss.
+
+    Args:
+        w (float): The privacy-utility trade-off parameter.
+        alpha (float): Katz attenuation factor.
+        beta (float):  Katz weight attributed to the immediate neighborhood.
+        r (int, optional): Multiplier for the number of edge swap attempts.
+                           Total swap attempts are r * num_edges.
+        is_eager (bool): Enables using the eager algorithm instead of greedy one.
+        use_optimal1d (bool): Use heuristic algorithm instead of hill climbing algorithms.
     """
 
     def __init__(self, w, alpha, is_eager, use_optimal1d, beta=1):

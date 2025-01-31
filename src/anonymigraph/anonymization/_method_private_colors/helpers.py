@@ -1,5 +1,6 @@
 import logging
 
+import networkx as nx
 import numpy as np
 
 from anonymigraph.anonymization._method_private_colors.losses import (

@@ -15,7 +15,7 @@ class Evaluator:
 
     Args:
         metrics (Dict[str, AbstractMetric]): A dictionary of metrics to be evaluated.
-        use_igraph (bool, optional): Flag indicating whether to use graphblas if a metric can use it.
+        use_igraph (bool, optional): Flag indicating whether to use igraph if a metric can use it.
                                         Defaults to True.
     """
 
@@ -34,7 +34,7 @@ class Evaluator:
         Returns:
             dict: A dictionary containing the evaluation results for each metric.
         """
-        logger.info("Converting graphs to graphblas")
+        logger.info("Converting graphs to igraph")
         if self.use_igraph:
             G_ig = ig.Graph.from_networkx(G)
             Ga_ig = ig.Graph.from_networkx(Ga)

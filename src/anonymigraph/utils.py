@@ -37,6 +37,13 @@ def relabel_graph(G: nx.Graph) -> nx.Graph:
 def calculate_katz(A, alpha=0.1, beta=1.0, num_iters=10000, tol=None):
     """
     Calculate the Katz Centrality with numpy.
+
+    Args:
+        A (numpy.ndarray): Adjacency matrix of the graph.
+        alpha (float): Attenuation factor. Default is 0.1.
+        beta (float): Weight attributed to the immediate neighborhood. Default is 1.0.
+        num_iters (int): Maximum number of iterations. Default is 10000.
+        tol (float): Tolerance for convergence. Default is 1e-12.
     """
     if num_iters is None:
         num_iters = float("inf")

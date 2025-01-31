@@ -12,7 +12,46 @@ from anonymigraph.utils import _validate_input_graph
 logger = logging.getLogger(__name__)
 
 
-class FastCCMSampler:
+class PrivateClosenessColors:
+    def __init__(self, G, w, closeness_samples=100, r=10):
+        """
+        Implements the anonymizer based on our technique when using the Closeness Centrality utility loss and using an agglomerative clustering optimization approach.
+        Slow. Proof-of-concept.
+
+        Args:
+            w (float): The privacy-utility trade-off parameter.
+            r (int): Multiplier for the number of edge swap attempts. Total swap attempts are r * num_edges.
+            closeness_samples (int): The number of samples generated to estimate the closeness centrality based utility loss.
+        """
+
+        self.w = w
+        self.r = r
+        self.closeness_samples = closeness_samples
+
+    def anonymize(self, G, random_seed):
+        np.random.seed(random_seed)
+
+        G_ig = ig.Graph.from_networkx(G)
+        c_g = np.array(G_ig.closeness())
+        c_g = np.where(np.isnan(c_g), 0, c_g)
+
+        A_coo = nx.adjacency_matrix(G).tocoo().astype(np.float64)
+        mapped_get_objectives = lambda colors: _get_objectives(G, A_coo, c_g, colors, self.r, self.closeness_samples)
+
+        initial_colors = {i: i for i in G.nodes()}
+        colors, _ = _agglomerative_clustering(initial_colors, self.w, mapped_get_objectives)
+
+        # Create networkx anonyimzed graph from A_prime (using same node order as G)
+        A_prime = _FastCCMSampler(G, colors).sample(random_seed=random_seed)
+
+        Ga = nx.from_numpy_array(A_prime)
+        order = list(G.nodes())
+        relabel_map = {i: order[i] for i in range(len(order))}
+        G_new = nx.relabel_nodes(Ga, relabel_map)
+        return G_new
+
+
+class _FastCCMSampler:
     def __init__(self, G, colors, r=10):
         _validate_input_graph(G)
 
@@ -36,8 +75,8 @@ class FastCCMSampler:
         return A_csr_sample
 
 
-def get_objectives(G, A_coo, c_g, colors, r, closeness_samples):
-    sampler = FastCCMSampler(G, colors, r=r)
+def _get_objectives(G, A_coo, c_g, colors, r, closeness_samples):
+    sampler = _FastCCMSampler(G, colors, r=r)
     loss_samples = []
 
     random_base_seed = np.random.randint(0, 10_000_000)
@@ -57,7 +96,7 @@ def get_objectives(G, A_coo, c_g, colors, r, closeness_samples):
     return u_loss, p_loss, std_on_u
 
 
-def agglomerative_clustering(initial_colors, w, get_objectives):
+def _agglomerative_clustering(initial_colors, w, get_objectives):
     colors = initial_colors
 
     u_loss, p_loss, _ = get_objectives(colors)
@@ -108,38 +147,3 @@ def agglomerative_clustering(initial_colors, w, get_objectives):
             improvement = False
 
     return colors, current_obj
-
-
-class PrivateClosenessColors:
-    def __init__(self, G, w, closeness_samples=100, r=10):
-        """
-        Implements the anonymizer based on our technique when using the Closeness Centrality utility loss and using an agglomerative clustering optimization approach.
-        Slow.
-        """
-
-        self.G = G
-        self.w = w
-        self.r = r
-        self.closeness_samples = closeness_samples
-
-    def anonymize(self, G, random_seed):
-        np.random.seed(random_seed)
-
-        G_ig = ig.Graph.from_networkx(G)
-        c_g = np.array(G_ig.closeness())
-        c_g = np.where(np.isnan(c_g), 0, c_g)
-
-        A_coo = nx.adjacency_matrix(G).tocoo().astype(np.float64)
-        mapped_get_objectives = lambda colors: get_objectives(G, A_coo, c_g, colors, self.r, self.closeness_samples)
-
-        initial_colors = {i: i for i in G.nodes()}
-        colors, _ = agglomerative_clustering(initial_colors, self.w, mapped_get_objectives)
-
-        # Create networkx anonyimzed graph from A_prime (using same node order as G)
-        A_prime = FastCCMSampler(self.G, colors).sample(random_seed=random_seed)
-
-        Ga = nx.from_numpy_array(A_prime)
-        order = list(self.G.nodes())
-        relabel_map = {i: order[i] for i in range(len(order))}
-        G_new = nx.relabel_nodes(Ga, relabel_map)
-        return G_new

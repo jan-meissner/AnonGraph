@@ -9,8 +9,9 @@ from anonymigraph.metrics.utility.structural.abstract_graph_metric import (
 
 
 class EdgeJaccardMetric(AbstractMetric):
+    """Compute the Jaccard Index of the original and anonymized edge sets"""
+
     def evaluate(self, G: nx.Graph, Ga: nx.Graph):
-        """ """
         edges_G = set(G.edges())
         edges_Ga = set(Ga.edges())
 

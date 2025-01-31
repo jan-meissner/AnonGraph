@@ -49,7 +49,7 @@ class MeanDegreeMetric(AbstractGraphMetric):
 
 
 class NumberOfTrianglesMetric(AbstractGraphMetric):
-    """Count the total number of triangles in a graph. Uses GraphBLAS to accelerate the calculation."""
+    """Count the total number of triangles in a graph."""
 
     def __init__(self):
         super().__init__(pass_graph_as_igraph=False)
@@ -59,7 +59,7 @@ class NumberOfTrianglesMetric(AbstractGraphMetric):
 
 
 class AverageClusteringCoefficientMetric(AbstractGraphMetric):
-    """Calculate the average clustering coefficient of a graph. Uses GraphBLAS to accelerate the calculation."""
+    """Calculate the average clustering coefficient of a graph."""
 
     def __init__(self):
         super().__init__(pass_graph_as_igraph=False)
